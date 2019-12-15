@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class SideScrollerPlayer : MonoBehaviour
 {
+    public enum MoveType
+    {
+        Run = 0, Jump, Slide, Dash
+    }
+
+    [Tooltip("Players current movement style")]
+    public MoveType m_movetype;
+
+    [Tooltip("Is the player moving")]
     public bool moving;
-    private bool canJump;
 
+    [Tooltip("Players Movement speed")]
     public float moveSpeed;
-
-    
 
     [Tooltip("In Meters")]
     public float jumpHeight;
+
+
+    private bool canJump;
 
     private float jumpVelocity;
     private Vector2 velocity;
@@ -20,7 +30,7 @@ public class SideScrollerPlayer : MonoBehaviour
 
     float gravity = 9.8f;
 
-    public bool test = false;
+    public bool grounded = false;
 
     // Start is called before the first frame update
     void Start()
@@ -49,19 +59,12 @@ public class SideScrollerPlayer : MonoBehaviour
        }
 
         m_rigidbody.velocity = velocity;//Apply calculated velocity to rigidbody
+        updateMoveType();
     }
 
     private bool isGrounded()//Returns true if grounded
     {
-        RaycastHit hit;
-        if(Physics.Raycast(transform.position - new Vector3(0,0.5f,0), Vector3.down, out hit, 0.5f))
-        {
-            Debug.Log("Grounded");
-            return test;
-        }
-
-
-        return test;
+        return grounded;
     }
 
     private float ConvertJumpHeight(float height)//Convert from meters to inital velocity
@@ -79,15 +82,27 @@ public class SideScrollerPlayer : MonoBehaviour
         return velocity;
     }
 
+    void updateMoveType()
+    {
+        if (isGrounded())
+        {
+            m_movetype = MoveType.Run;
+        }
+        else
+        {
+            m_movetype = MoveType.Jump;
+        }
+           
+    }
 
-
-
+    //toggles grounded bool based on triggerBox
+    //triggerbox should be smaller than normal collider & slightly lower than the chacter
     private void OnTriggerStay(Collider other)
     {
-        test = true;
+        grounded = true;
     }
     private void OnTriggerExit(Collider other)
     {
-        test = false;
+        grounded = false;
     }
 }

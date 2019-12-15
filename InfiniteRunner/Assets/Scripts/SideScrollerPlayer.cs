@@ -46,17 +46,20 @@ public class SideScrollerPlayer : MonoBehaviour
         {
             velocity.x = moveSpeed;
         }
-        //adds gravity force
-        velocity.y -= gravity * Time.deltaTime;
 
-      if (isGrounded())
-      {
-         //   velocity.y = 0;
+        if (isGrounded())
+        {
+            //velocity.y = 0;
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 velocity.y = jumpVelocity;
             }
-       }
+        }
+        else
+        {
+            //adds gravity force if not grounded
+            velocity.y -= gravity * Time.deltaTime;
+        }
 
         m_rigidbody.velocity = velocity;//Apply calculated velocity to rigidbody
         updateMoveType();
@@ -92,7 +95,7 @@ public class SideScrollerPlayer : MonoBehaviour
         {
             m_movetype = MoveType.Jump;
         }
-           
+
     }
 
     //toggles grounded bool based on triggerBox

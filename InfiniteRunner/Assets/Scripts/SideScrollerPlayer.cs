@@ -75,10 +75,10 @@ public class SideScrollerPlayer : MonoBehaviour
             velocity.x = moveSpeed;
         }
 
-        //Jumping
+        //Jumping conrolls
         if (isGrounded())
         {
-            //Get input 
+            //Get input(checks if mosuse is down on the right side of screen (For mobile))
             if ((Input.GetKeyDown(KeyCode.Space) || (Input.GetMouseButtonDown(0) && Input.mousePosition.x > Screen.width / 2)) && m_movetype != MoveType.Slide)
             {
                 velocity.y = jumpVelocity;
@@ -91,10 +91,12 @@ public class SideScrollerPlayer : MonoBehaviour
         }
 
         //sliding
+        //Get input(checks if mosuse is down on the left side of screen (For mobile))
         if ((Input.GetKeyDown(KeyCode.DownArrow) || (Input.GetMouseButtonDown(0) && Input.mousePosition.x < Screen.width / 2))  && m_movetype != MoveType.Slide)
         {
             enterSlide();
         }
+        //timer for characters slide
         if (m_movetype == MoveType.Slide)
         {
             slideTimer += Time.deltaTime;
@@ -120,6 +122,8 @@ public class SideScrollerPlayer : MonoBehaviour
         }
     }
 
+
+    //sets up players slide timer and sprite
     private void enterSlide()
     {
         m_movetype = MoveType.Slide;
@@ -149,6 +153,8 @@ public class SideScrollerPlayer : MonoBehaviour
         return velocity;
     }
 
+
+    //Updates move type this is used for sprite and determining if player may jump
     void updateMoveType()
     {
         if (m_movetype != MoveType.Slide)

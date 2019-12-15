@@ -43,7 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6455e4b2e050247b19c2c6ee794208, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilesets: []
+  tilesets:
+  - {fileID: 11400000, guid: eff82c17ceaa25444952761992e2608e, type: 2}
   startingTile: {fileID: 1045856635515944259, guid: 3223598f41726e940959b3eb37fa3e2e,
     type: 3}
+  running: 1
+  player: {fileID: 0}
   maxActiveSegments: 5
+  DeletionXValue: -40

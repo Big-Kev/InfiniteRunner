@@ -24,6 +24,7 @@ public class LevelSegment : MonoBehaviour
             {
                 GameObject thisCoin = Instantiate(coinPrefab);
                 thisCoin.transform.position = t.transform.position;
+
                 thisCoin.transform.parent = this.transform;
             }
         }

@@ -8,6 +8,16 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get { return _instance; } }
     private static GameManager _instance;
 
+    public enum GameState
+    {
+       GameOver = 0,
+       Active,
+       Paused
+    }
+
+    public GameState currentGameState;
+
+
     private void Awake()
     {
         //Preventing duplicate insatnces
@@ -19,6 +29,7 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
         }
+
     }
 
     //Game Manager Variables

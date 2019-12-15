@@ -99,6 +99,11 @@ public class SideScrollerPlayer : MonoBehaviour
 
     }
 
+    void FixedUpdate()
+    {
+        grounded = false;
+    }
+
     //toggles grounded bool based on triggerBox
     //triggerbox should be smaller than normal collider & slightly lower than the chacter
     private void OnTriggerStay(Collider other)

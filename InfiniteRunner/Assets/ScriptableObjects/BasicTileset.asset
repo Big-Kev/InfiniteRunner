@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb05a561c020fb4d82e75486f02e6f8, type: 3}
   m_Name: BasicTileset
   m_EditorClassIdentifier: 
+  levelSegements:
+  - {fileID: 8720177693198381763, guid: 0dee845a50e76d64b98639c624c6af20, type: 3}

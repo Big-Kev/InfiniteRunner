@@ -14,15 +14,16 @@ public class LevelManager : MonoBehaviour
     public GameObject startingTile;
 
     //Current level variables
-    bool running = true;
-    SideScrollerPlayer player;
+    public bool running = true;
+    public SideScrollerPlayer player;
     float scrollSpeed;
     List<LevelSegment> levelSegments = new List<LevelSegment>();
     public int maxActiveSegments = 5;
 
+    public float DeletionXValue = -20;
 
 
-    void start()
+    void Start()
     {
         //setting up and validating tilesets (Move this to its own function later?)
         if (tilesets.Length > 0)
@@ -59,23 +60,58 @@ public class LevelManager : MonoBehaviour
 
         //Instanciate Starter plaform
         GameObject starterSegment = Instantiate(startingTile);
-        starterSegment.transform.position = new Vector3(0, 0, 0);
-        levelSegments.Add(starterSegment.GetComponent<LevelSegment>());
-
-
+        LevelSegment segment = starterSegment.GetComponent<LevelSegment>();
+        levelSegments.Add(segment);
+        segment.moveToStartOffset(this.transform);
+        segment.myLevel = this;
     }
 
-    void update()
+    void Update()
     {
         if (levelSegments.Count < maxActiveSegments)
         {
-            CreateSegment();
+            CreateSegment(levelSegments[levelSegments.Count - 1].EndConnector);
+
         }
-        
+
+        List<LevelSegment> deathrow = new List<LevelSegment>();
+        foreach (LevelSegment s in levelSegments)
+        {
+            if (s.transform.position.x < DeletionXValue)
+            {
+                deathrow.Add(s);
+            }
+            else
+            {
+                s.gameObject.transform.position += new Vector3(-scrollSpeed * Time.deltaTime, 0, 0);
+            }
+            //s.GetComponent<Rigidbody>().velocity = new Vector3(-scrollSpeed * Time.deltaTime, 0, 0);
+
+        }
+        for (int i = 0; i < deathrow.Count; i++)
+        {
+            deathrow[i].removeSegment();
+        }
+
+        Debug.Log("Remove this before finishing");
+        //Debug
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Time.timeScale = 10;
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Time.timeScale = 1;
+        }
     }
 
+
+    public void removeLevelSegment(LevelSegment s)
+    {
+        levelSegments.Remove(s);
+    }
     //this function selects a tile from the tileset(s) to create and instanciates it 
-    void CreateSegment()
+    void CreateSegment(Transform nextPosition)
     {
         if (running)
         {
@@ -85,10 +121,13 @@ public class LevelManager : MonoBehaviour
             if (m_tilesets.Count == 1)
             {
                 //randomly select tile
-                int segmentCount = m_tilesets[1].levelSegements.Length;
+                int segmentCount = m_tilesets[0].levelSegements.Length;
                 int segementIndex = Random.Range(0, segmentCount);
                 //create and settup tile
-                GameObject newSegment = Instantiate(m_tilesets[1].levelSegements[segementIndex]);
+                GameObject newSegment = Instantiate(m_tilesets[0].levelSegements[segementIndex]);
+                levelSegments.Add(newSegment.GetComponent<LevelSegment>());
+                newSegment.GetComponent<LevelSegment>().moveToStartOffset(nextPosition);
+                newSegment.GetComponent<LevelSegment>().myLevel = this;
                 //add position etc
 
             }
@@ -103,7 +142,9 @@ public class LevelManager : MonoBehaviour
                 //Create and settup new tile
                 GameObject newSegment = Instantiate(m_tilesets[tileSetIndex].levelSegements[segementIndex]);
                 //add position etc
-
+                levelSegments.Add(newSegment.GetComponent<LevelSegment>());
+                newSegment.GetComponent<LevelSegment>().moveToStartOffset(nextPosition);
+                newSegment.GetComponent<LevelSegment>().myLevel = this;
             }
         }
     }

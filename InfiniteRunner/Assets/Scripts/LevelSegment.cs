@@ -7,22 +7,46 @@ using UnityEngine;
 //Coin Positions should be empty game objects
 public class LevelSegment : MonoBehaviour
 {
+    public LevelManager myLevel;
     public Transform EndConnector, StartConnector;
     public Transform[] CoinPositions;
     public GameObject coinPrefab;
-    [Range(0, 100)][Tooltip("In Percentage")]
+    [Range(0, 100)]
+    [Tooltip("In Percentage")]
     public float coinSpawnChance = 100;
 
     void Start()
     {
-        
+
         if (CoinPositions.Length > 0 && coinPrefab != null)
         {
-            foreach(Transform t in CoinPositions)
+            foreach (Transform t in CoinPositions)
             {
                 GameObject thisCoin = Instantiate(coinPrefab);
                 thisCoin.transform.position = t.transform.position;
             }
+        }
+    }
+    
+    //moves the level segment to a postion then ofset to the starting connector
+    //use this function to connect this levelsegment to the EndConnector of the previous segment
+    public void moveToStartOffset(Transform targetPosition)
+    {
+        Vector3 startOffset = StartConnector.position - gameObject.transform.position;
+        transform.position = targetPosition.position + startOffset;
+    }
+
+
+
+    float timer = 6;
+
+    //Test remove onnce tesing complete
+    void Update()
+    {
+        timer -= Time.deltaTime;
+        if (timer < 0)
+        {
+            Destroy(gameObject);
         }
     }
 

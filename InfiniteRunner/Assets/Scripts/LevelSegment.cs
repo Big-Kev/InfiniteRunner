@@ -24,10 +24,11 @@ public class LevelSegment : MonoBehaviour
             {
                 GameObject thisCoin = Instantiate(coinPrefab);
                 thisCoin.transform.position = t.transform.position;
+                thisCoin.transform.parent = this.transform;
             }
         }
     }
-    
+
     //moves the level segment to a postion then ofset to the starting connector
     //use this function to connect this levelsegment to the EndConnector of the previous segment
     public void moveToStartOffset(Transform targetPosition)
@@ -38,16 +39,14 @@ public class LevelSegment : MonoBehaviour
 
 
 
-    float timer = 6;
 
-    //Test remove onnce tesing complete
-    void Update()
+    public void removeSegment()
     {
-        timer -= Time.deltaTime;
-        if (timer < 0)
+        if (myLevel != null)
         {
-            Destroy(gameObject);
+            myLevel.removeLevelSegment(this);
         }
-    }
+        Destroy(gameObject);
 
+    }
 }

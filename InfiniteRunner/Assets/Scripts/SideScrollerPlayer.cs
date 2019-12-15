@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//This script controlls aspects of the player such as jumping and moving
 public class SideScrollerPlayer : MonoBehaviour
 {
     public enum MoveType

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//UI Manager updates the game UI while in a level
+//Update functions should be called when a value is modified
 public class UIManager : MonoBehaviour
 {
     //setting up singleton instance of the UImanager

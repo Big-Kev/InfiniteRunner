@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//The level segment script represents a modular piece of the level
+//When creating a level segement prefab create 2 attach points for linking to the previous and next parts of the level
+//Coin Positions should be empty game objects
 public class LevelSegment : MonoBehaviour
 {
     public Transform EndConnector, StartConnector;

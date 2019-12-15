@@ -15,6 +15,9 @@ public class MovePlayer : MonoBehaviour
     private float timer = 0;
     BoxCollider box;
 
+    
+    
+
     public Vector3 size1;
     public Vector3 size2;
     // Start is called before the first frame update

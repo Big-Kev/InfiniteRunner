@@ -37,11 +37,11 @@ public class CharacterAnimator : MonoBehaviour
 
         switch (player.m_movetype)
         {
-            case SideScrollerPlayer.MoveType.Run:
-                spriteRender.sprite = sprites[runIndex];
-                break;
             case SideScrollerPlayer.MoveType.Slide:
                 spriteRender.sprite = slide;
+                break;
+            case SideScrollerPlayer.MoveType.Run:
+                spriteRender.sprite = sprites[runIndex];
                 break;
             case SideScrollerPlayer.MoveType.Jump:
                 spriteRender.sprite = sprites[0];

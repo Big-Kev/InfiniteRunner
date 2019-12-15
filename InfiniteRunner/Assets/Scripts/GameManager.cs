@@ -56,4 +56,10 @@ public class GameManager : MonoBehaviour
         return Score;
     }
 
+    public void GameOver()
+    {
+        currentGameState = GameState.GameOver;
+        UIManager.Instance.endGame();
+        Time.timeScale = 0;
+    }
 }

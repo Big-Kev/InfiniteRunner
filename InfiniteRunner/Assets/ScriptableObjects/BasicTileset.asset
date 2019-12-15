@@ -15,3 +15,4 @@ MonoBehaviour:
   levelSegements:
   - {fileID: 8720177693198381763, guid: 0dee845a50e76d64b98639c624c6af20, type: 3}
   - {fileID: 8040099038486466248, guid: 836a63917ab406d4fb6c0b6de03a036e, type: 3}
+  - {fileID: 1423125857223610312, guid: e9d1f6ad920c4e94f890cac8e0f8268b, type: 3}

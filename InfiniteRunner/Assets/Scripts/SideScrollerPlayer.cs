@@ -63,9 +63,11 @@ public class SideScrollerPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //With more time this should be somewhere else
         if(GameManager.Instance.currentGameState == GameManager.GameState.GameOver && Input.GetMouseButtonDown(0))
         {
-            SceneManager.LoadScene("MainScene");
+            Application.LoadLevel(Application.loadedLevel);
+            //SceneManager.LoadScene("MainScene"); //didnt load properly
         }
 
         if (moving)//sets velocity if moving

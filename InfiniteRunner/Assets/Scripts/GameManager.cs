@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
     //setting up singleton instance of the game manager
     public static GameManager Instance { get { return _instance; } }
     private static GameManager _instance;
-
-    private int Score;
 
     private void Awake()
     {
@@ -22,31 +19,24 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
         }
-
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //Game Manager Variables
+    private int Score;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     //changes score by input value
     public void ChangeScore(int change)
     {
         Score += change;
+        UIManager.Instance.UpdateScoreText();//Updating the score in the UI Manager
     }
 
     //sets current score
     public void SetScore(int s)
     {
         Score = s;
+        UIManager.Instance.UpdateScoreText();//Updating the score in the UI Manager
     }
 
     //returns current score
